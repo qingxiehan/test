@@ -490,8 +490,8 @@
                         <button class="distance-btn" data-distance="1">1公里</button>
                         <button class="distance-btn" data-distance="5">5公里</button>
                         <button class="distance-btn" data-distance="10">10公里</button>
-                        <button class="distance-btn active" data-distance="21.1">半马</button>
-                        <button class="distance-btn" data-distance="42.195">全马</button>
+                        <button class="distance-btn " data-distance="21.1">半马</button>
+                        <button class="distance-btn active" data-distance="42.195">全马</button>
                     </div>
                 </div>
             </div>
@@ -731,9 +731,14 @@
         
         // 初始计算
         window.addEventListener('load', function() {
-            setMode('pace');
-            generateChart();
-        });
+  // 默认选中全马
+  document.querySelector('.distance-btn[data-distance="42.195"]').classList.add('active');
+  distanceInput.value = "42.195";  // 设置输入框默认值
+  timeDistanceInput.value = "42.195";
+  
+  setMode('pace');  // 默认配速计算模式
+  calculate();      // 立即计算
+});
         
         // 输入验证
         const inputs = [hoursInput, minutesInput, secondsInput, distanceInput, 
