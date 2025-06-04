@@ -125,22 +125,27 @@
         }
         
         .time-inputs, .pace-inputs {
-            display: flex;
-            gap: 12px;
-        }
+  display: flex;
+  gap: 8px; /* 缩小间距适应手机屏幕 */
+  overflow-x: auto; /* 允许横向滚动以防万一 */
+  -webkit-overflow-scrolling: touch; /*  iOS平滑滚动 */
+  padding-bottom: 5px; /* 为滚动条留空间 */
+}
+
         
-        .time-inputs input, 
-        .pace-inputs input,
-        .distance-input input {
-            flex: 1;
-            padding: 14px 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            background: #fff;
-            min-width: 0;
-        }
+      /* 时间/配速输入框 */
+.time-inputs input, 
+.pace-inputs input {
+  flex: 0 0 auto; /* 不自动伸缩，保持内容宽度 */
+  width: calc(33% - 6px); /* 三个输入框平分宽度，考虑gap */
+  min-width: 80px; /* 最小宽度确保可触摸 */
+  padding: 12px 8px; /* 调整内边距 */
+  font-size: 16px; /* 适当增大字体 */
+}
+/* 距离输入框 */
+.distance-input input {
+  width: 100%;
+}
         
         .time-inputs input:focus, 
         .pace-inputs input:focus,
@@ -474,10 +479,10 @@
                 <div class="input-group">
                     <label>目标时间：</label>
                     <div class="time-inputs">
-                        <input type="number" id="hours" placeholder="小时" min="0" value="4">
-                        <input type="number" id="minutes" placeholder="分钟" min="0" max="59" value="0">
-                        <input type="number" id="seconds" placeholder="秒" min="0" max="59" value="0">
-                    </div>
+    <input type="number" id="hours" placeholder="时" min="0" value="4">
+    <input type="number" id="minutes" placeholder="分" min="0" max="59" value="0">
+    <input type="number" id="seconds" placeholder="秒" min="0" max="59" value="0">
+  </div>
                 </div>
                 
                 <div class="input-group">
@@ -500,9 +505,9 @@
                 <div class="input-group">
                     <label>配速：</label>
                     <div class="pace-inputs">
-                        <input type="number" id="pace-minutes" placeholder="分钟" min="0" value="5">
-                        <input type="number" id="pace-seconds" placeholder="秒" min="0" max="59" value="30">
-                    </div>
+    <input type="number" id="pace-minutes" placeholder="分" min="0" value="5">
+    <input type="number" id="pace-seconds" placeholder="秒" min="0" max="59" value="30">
+  </div>
                     <p class="result-label">格式：分钟:秒/公里（例如：5:30 表示每公里5分30秒）</p>
                 </div>
                 
