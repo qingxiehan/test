@@ -124,23 +124,23 @@
             font-size: 0.95rem;
         }
         
-        .time-inputs, .pace-inputs {
+       .time-inputs, .pace-inputs {
   display: flex;
-  gap: 8px; /* 缩小间距适应手机屏幕 */
-  overflow-x: auto; /* 允许横向滚动以防万一 */
-  -webkit-overflow-scrolling: touch; /*  iOS平滑滚动 */
-  padding-bottom: 5px; /* 为滚动条留空间 */
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 5px;
+  flex-wrap: nowrap; /* 确保不换行 */
 }
 
         
-      /* 时间/配速输入框 */
-.time-inputs input, 
+ .time-inputs input, 
 .pace-inputs input {
-  flex: 0 0 auto; /* 不自动伸缩，保持内容宽度 */
-  width: calc(33% - 6px); /* 三个输入框平分宽度，考虑gap */
-  min-width: 80px; /* 最小宽度确保可触摸 */
-  padding: 12px 8px; /* 调整内边距 */
-  font-size: 16px; /* 适当增大字体 */
+  flex: 1; /* 改为等分宽度 */
+  min-width: 80px;
+  padding: 12px 8px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 /* 距离输入框 */
 .distance-input input {
