@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>跑步配速计算器 </title>
+    <title>跑步配速计算器 - 紧凑版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -124,28 +124,43 @@
             font-size: 0.95rem;
         }
         
-       .time-inputs, .pace-inputs {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 5px;
-  flex-wrap: nowrap; /* 确保不换行 */
-}
-
+        /* 紧凑布局样式 */
+        .compact-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
         
- .time-inputs input, 
-.pace-inputs input {
-  flex: 1; /* 改为等分宽度 */
-  min-width: 80px;
-  padding: 12px 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-/* 距离输入框 */
-.distance-input input {
-  width: 100%;
-}
+        .compact-row .input-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        /* 时间输入框组样式 */
+        .time-inputs {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .time-inputs input {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* 统一输入框高度 */
+        .time-inputs input, 
+        .pace-inputs input,
+        .distance-input input {
+            height: 50px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            background: #fff;
+            width: 100%;
+            box-sizing: border-box;
+        }
         
         .time-inputs input:focus, 
         .pace-inputs input:focus,
@@ -376,7 +391,8 @@
             font-weight: 600;
         }
         
-        @media (max-width: 480px) {
+        /* 手机特定优化 */
+        @media (max-width: 768px) {
             header h1 {
                 font-size: 1.6rem;
             }
@@ -398,7 +414,16 @@
                 font-size: 1.3rem;
             }
             
-      
+            /* 小屏幕下改为垂直布局 */
+            .compact-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            /* 小屏幕下时间输入框保持在一行 */
+            .time-inputs {
+                flex-direction: row;
+            }
             
             .result-box {
                 min-width: 100%;
@@ -430,6 +455,19 @@
             .distance-btn {
                 padding: 10px 8px;
                 font-size: 0.88rem;
+                min-width: 30%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .distance-btn {
+                min-width: 45%;
+            }
+            
+            /* 超小屏幕调整时间输入框 */
+            .time-inputs input {
+                padding: 12px 8px;
+                font-size: 0.95rem;
             }
         }
         
@@ -457,7 +495,7 @@
     <div class="container">
         <header>
             <h1><i class="fas fa-running"></i> 跑步配速计算器</h1>
-            <p>计算配速、目标时间及分段时间</p>
+            <p>紧凑布局版 - 专为移动设备优化</p>
         </header>
         
         <div class="mode-selector">
@@ -473,54 +511,61 @@
             
             <!-- 配速计算模式输入 -->
             <div id="pace-mode-input">
-                <div class="input-group">
-                    <label>目标时间：</label>
-                    <div class="time-inputs">
-    <input type="number" id="hours" placeholder="时" min="0" value="4">
-    <input type="number" id="minutes" placeholder="分" min="0" max="59" value="0">
-    <input type="number" id="seconds" placeholder="秒" min="0" max="59" value="0">
-  </div>
+                <div class="compact-row">
+                    <div class="input-group">
+                        <label>目标时间</label>
+                        <div class="time-inputs">
+                            <input type="number" id="hours" placeholder="时" min="0" value="4">
+                            <input type="number" id="minutes" placeholder="分" min="0" max="59" value="0">
+                            <input type="number" id="seconds" placeholder="秒" min="0" max="59" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>距离</label>
+                        <div class="distance-input">
+                            <input type="number" id="distance" placeholder="距离" min="0.1" step="0.1" value="42.195">
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="input-group">
-                    <label>距离：</label>
-                    <div class="distance-input">
-                        <input type="number" id="distance" placeholder="距离" min="0.1" step="0.1" value="42.195">
-                    </div>
-                    <div class="distance-presets">
-                        <button class="distance-btn" data-distance="1">1公里</button>
-                        <button class="distance-btn" data-distance="5">5公里</button>
-                        <button class="distance-btn" data-distance="10">10公里</button>
-                        <button class="distance-btn " data-distance="21.1">半马</button>
-                        <button class="distance-btn active" data-distance="42.195">全马</button>
-                    </div>
+                <div class="distance-presets">
+                    <button class="distance-btn" data-distance="1">1公里</button>
+                    <button class="distance-btn" data-distance="5">5公里</button>
+                    <button class="distance-btn" data-distance="10">10公里</button>
+                    <button class="distance-btn active" data-distance="21.1">半马</button>
+                    <button class="distance-btn" data-distance="42.195">全马</button>
                 </div>
             </div>
             
             <!-- 时间计算模式输入 -->
             <div id="time-mode-input" style="display: none;">
-                <div class="input-group">
-                    <label>配速：</label>
-                    <div class="pace-inputs">
-    <input type="number" id="pace-minutes" placeholder="分" min="0" value="5">
-    <input type="number" id="pace-seconds" placeholder="秒" min="0" max="59" value="30">
-  </div>
-                    <p class="result-label">格式：分钟:秒/公里（例如：5:30 表示每公里5分30秒）</p>
+                <div class="compact-row">
+                    <div class="input-group">
+                        <label>配速</label>
+    <div class="pace-inputs" style="display: flex; gap: 8px;">
+        <input type="number" id="pace-minutes" placeholder="分钟" min="0" value="5" style="flex: 1;">
+        <input type="number" id="pace-seconds" placeholder="秒" min="0" max="59" value="30" style="flex: 1;">
+    </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>距离</label>
+                        <div class="distance-input">
+                            <input type="number" id="time-distance" placeholder="距离" min="0.1" step="0.1" value="42.195">
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="input-group">
-                    <label>距离：</label>
-                    <div class="distance-input">
-                        <input type="number" id="time-distance" placeholder="距离" min="0.1" step="0.1" value="42.195">
-                    </div>
-                    <div class="distance-presets">
-                        <button class="distance-btn" data-distance="1">1公里</button>
-                        <button class="distance-btn" data-distance="5">5公里</button>
-                        <button class="distance-btn" data-distance="10">10公里</button>
-                        <button class="distance-btn" data-distance="21.1">半马</button>
-                        <button class="distance-btn active" data-distance="42.195">全马</button>
-                    </div>
+                <div class="distance-presets">
+                    <button class="distance-btn" data-distance="1">1公里</button>
+                    <button class="distance-btn" data-distance="5">5公里</button>
+                    <button class="distance-btn" data-distance="10">10公里</button>
+                    <button class="distance-btn" data-distance="21.1">半马</button>
+                    <button class="distance-btn active" data-distance="42.195">全马</button>
                 </div>
+                
+                <p class="result-label">格式：分钟:秒/公里（例如：5:30 表示每公里5分30秒）</p>
             </div>
             
             <div class="unit-toggle">
@@ -628,7 +673,7 @@
         </div>
         
         <footer>
-            <p>跑步配速计算器 &copy; 2025 | 杰出卿年</p>
+            <p>跑步配速计算器 &copy; 2023 | 紧凑布局版</p>
             <p>提示：计算结果为理论值，实际表现受赛道、天气和身体状态影响</p>
         </footer>
     </div>
@@ -732,14 +777,9 @@
         
         // 初始计算
         window.addEventListener('load', function() {
-  // 默认选中全马
-  document.querySelector('.distance-btn[data-distance="42.195"]').classList.add('active');
-  distanceInput.value = "42.195";  // 设置输入框默认值
-  timeDistanceInput.value = "42.195";
-  
-  setMode('pace');  // 默认配速计算模式
-  calculate();      // 立即计算
-});
+            setMode('pace');
+            generateChart();
+        });
         
         // 输入验证
         const inputs = [hoursInput, minutesInput, secondsInput, distanceInput, 
